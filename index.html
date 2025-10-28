@@ -46,7 +46,7 @@
     .controls {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 1rem 1.5rem;
       margin-top: 2rem;
       align-items: flex-end;
     }
@@ -79,10 +79,38 @@
       font-family: inherit;
       line-height: 1;
       cursor: pointer;
+      height: 2.6rem;
     }
 
     button#generateBtn:hover {
       opacity: 0.9;
+    }
+
+    .toggles {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+      font-size: 0.8rem;
+      color: #5a4f3a;
+    }
+
+    .toggles label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #5a4f3a;
+    }
+
+    input[type="checkbox"] {
+      accent-color: #1a1a1a;
+      width: 1rem;
+      height: 1rem;
+      cursor: pointer;
     }
 
     .outputWrapper {
@@ -112,6 +140,10 @@
       cursor: pointer;
     }
 
+    #text p {
+      margin: 0 0 1rem 0;
+    }
+
     .legal {
       font-size: 0.7rem;
       line-height: 1.4;
@@ -128,6 +160,21 @@
       margin-top: 0.5rem;
       text-align: center;
     }
+
+    .share {
+      font-size: 0.7rem;
+      line-height: 1.4;
+      color: #5a4f3a;
+      margin-top: 1rem;
+      text-align: center;
+    }
+.credit {
+  font-size: 0.7rem;
+  line-height: 1.4;
+  color: #5a4f3a;
+  margin-top: 0.5rem;
+  text-align: center;
+}
 
   </style>
 </head>
@@ -166,6 +213,18 @@
       <button id="generateBtn">generate filth</button>
     </section>
 
+    <section class="toggles">
+      <label>
+        <input type="checkbox" id="wrapHtml" />
+        wrap in &lt;p&gt; tags (deck mode)
+      </label>
+
+      <label>
+        <input type="checkbox" id="respectable" />
+        respectable mode (HR-safe latin vibe)
+      </label>
+    </section>
+
     <section class="outputWrapper" id="output">
       <button class="copyBtn" id="copyBtn">copy to clipboardum</button>
       <div id="text"></div>
@@ -175,70 +234,107 @@
       warning: contains explicitum. definitely not historically accurate. possibly heresy.
     </div>
     <div class="notice">
-      copywrong 2025. colton williams. all participants depicted are consenting adultus. zero minors. zero weird stuff. stay holy.
+      all participants depicted are consenting adultus. zero minors. zero weird stuff. stay holy.
     </div>
+    <div class="share">
+      post a screenshot and tag @whoremipsum
+    </div>
+    <div class="credit">
+  ©2025 Colton Williams
+</div>
+
   </main>
 
   <script>
     const BANK = {
       PG13: [
-        "Whorem ipsum dolor sit amet, flexus ego maximus, thirst trapinus eternalibus. Glowus dewy cheekbones et camera angulus sanctus, praise be the jawline.",
-        "Lipsum plumpare, cupidatat booty maximus in high waistus denimus, humblebrag vitae est.",
-        "Sed thirsticus postare nocturnum, recipere DMus ‘u up?’ from Marcus, that messy emperor of late night.",
+        "Whorem ipsum dolor sit amet, flexus ego maximus, thirst trapinus eternalibus. Glowus cheekbone sanctus, jawline divinum.",
+        "Booty maximus in denimus high-waistus, humblebrag vitae est. Sed nocturnum postare, recieve DMus 'u up?' from Marcus the messy emperor.",
         "Consentus mutualis, vibe immaculate, drama minimum, screenshotum maximum."
       ],
       R: [
-        "Whorem ipsum dolor sit amatissimo, libidinis aura drippat in collarbone et clavicula shine.",
-        "Lingua orbitat lente, manus explorat territorium uncharteditum like new provincia of Rome.",
+        "Whorem ipsum libidinis aura drippat in clavicula shine, lingua orbitat lente and manus explorat territorium uncharteditum like new provincia of Rome.",
         "Peccatum delicious, moanus soft but dramatic for effectus, camera already propped on nightstandus because content is content.",
-        "Oiledus gluteus, arch deluxe, ‘say my nomen,’ chantare in templo pleasure. Aftercare followeth, hydratum both parties, gossip post-battle."
+        "Aftercare followeth, hydratum both parties, gossip post-battle sub rosa."
       ],
       XXX: [
-        // keep this consensual / explicit adult
-        "Whorem ipsum sanctum moanare, pelvis ad pelvis impactus in rhythm divine, sweatus drip down spina like holy water.",
-        "Lingua descendit lente along inner thighus, worship ritualis kiss by kiss down to the altar, handum in capillo pulling backus with ‘closer, please’ spoken like scripture.",
-        "Chestus press to backus, hips keepus tempo, both cry ‘oh my deus,’ simultaneus finishus celebratum like Saturnalia deluxe."
+        "Whorem ipsum sanctum rhythm divine, bodies press tightus, sweatus along spina like holy water.",
+        "Lingua descendit lente, worship ritualis kiss by kiss down to the altar, whisper 'closer, please' like scripture.",
+        "Tempo continuat, both exclaim 'oh my deus,' celebratum like Saturnalia deluxe."
+      ],
+      RESPECTABLE: [
+        "Whorem ipsum dolor sit amet, ego aura gloriosum, cheekbone sanctus and posture divinum. Confidence ascendit like empire at sunrise.",
+        "Eyes locked forward, legacy sculptum in real time, witnessed by jealous onlookers and three blurry iPhone photos.",
+        "Drama minimum, legend status inevitable, reputation circulating faster than official press release."
       ]
     };
 
-    function makeParagraph(level) {
-      // pick 3-5 random lines from BANK[level] and stitch
-      const lines = BANK[level];
-      const howMany = Math.floor(Math.random() * 3) + 3; // 3,4,5
-      let picks = [];
-      for (let i = 0; i < howMany; i++) {
-        const bit = lines[Math.floor(Math.random() * lines.length)];
-        picks.push(bit);
-      }
-      // join into one paragraph with spaces
-      return picks.join(" ");
+    function pickRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    function generateText() {
-      const paras = parseInt(document.getElementById("paras").value, 10);
-      const spice = document.getElementById("spice").value;
-      let finalText = "";
-      for (let i = 0; i < paras; i++) {
-        finalText += makeParagraph(spice) + "\n\n";
+    function makeParagraph(level) {
+      // choose how many fragments to stitch (3–5)
+      const howMany = Math.floor(Math.random() * 3) + 3;
+      let bits = [];
+      for (let i = 0; i < howMany; i++) {
+        bits.push(pickRandom(BANK[level]));
       }
-      document.getElementById("text").textContent = finalText.trim();
+      return bits.join(" ");
+    }
+
+    function generateParagraphs(count, level) {
+      const paras = [];
+      for (let i = 0; i < count; i++) {
+        paras.push(makeParagraph(level));
+      }
+      return paras;
+    }
+
+    function renderOutput() {
+      const count = parseInt(document.getElementById("paras").value, 10);
+      const spice = document.getElementById("spice").value;
+      const wrapHtml = document.getElementById("wrapHtml").checked;
+      const respectable = document.getElementById("respectable").checked;
+
+      const mode = respectable ? "RESPECTABLE" : spice;
+      const paragraphs = generateParagraphs(count, mode);
+
+      const textDiv = document.getElementById("text");
+
+      if (wrapHtml) {
+        // Render actual <p> tags
+        textDiv.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join("");
+      } else {
+        // Render plain text with double line breaks
+        textDiv.innerHTML = paragraphs.join("\n\n")
+          .replace(/</g,"&lt;")
+          .replace(/>/g,"&gt;");
+      }
     }
 
     function copyText() {
-      const txt = document.getElementById("text").textContent;
-      navigator.clipboard.writeText(txt).then(() => {
-        document.getElementById("copyBtn").textContent = "copiatum ✔";
+      const wrapHtml = document.getElementById("wrapHtml").checked;
+      const textDiv = document.getElementById("text");
+
+      const toCopy = wrapHtml
+        ? textDiv.innerHTML // includes <p> tags
+        : textDiv.textContent; // plain text
+
+      navigator.clipboard.writeText(toCopy).then(() => {
+        const btn = document.getElementById("copyBtn");
+        btn.textContent = "copiatum ✔";
         setTimeout(()=>{
-          document.getElementById("copyBtn").textContent = "copy to clipboardum";
+          btn.textContent = "copy to clipboardum";
         },1500);
       });
     }
 
-    document.getElementById("generateBtn").addEventListener("click", generateText);
+    document.getElementById("generateBtn").addEventListener("click", renderOutput);
     document.getElementById("copyBtn").addEventListener("click", copyText);
 
-    // generate something on load so it's not empty
-    generateText();
+    // generate on load
+    renderOutput();
   </script>
 </body>
 </html>
