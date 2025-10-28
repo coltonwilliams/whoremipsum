@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>whorem ipsum</title>
+  <style>
+    body {
+      background-color: #f8f5ef;
+      color: #1a1a1a;
+      font-family: "Times New Roman", Georgia, serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .card {
+      max-width: 700px;
+      width: 100%;
+      background: #fffdf8;
+      border: 1px solid #d4cbb5;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+      border-radius: 16px;
+      padding: 2rem 2rem 1rem;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin: 0;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .tagline {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: #5a4f3a;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+      align-items: flex-end;
+    }
+
+    label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #5a4f3a;
+      font-weight: 600;
+    }
+
+    select {
+      background: #fff;
+      border: 1px solid #b2a489;
+      border-radius: 8px;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.9rem;
+      min-width: 140px;
+      color: #1a1a1a;
+    }
+
+    button#generateBtn {
+      background: #1a1a1a;
+      color: #fffdf8;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      font-family: inherit;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    button#generateBtn:hover {
+      opacity: 0.9;
+    }
+
+    .outputWrapper {
+      position: relative;
+      margin-top: 2rem;
+      background: #fff;
+      border: 1px solid #d4cbb5;
+      border-radius: 12px;
+      padding: 1rem 3rem 1rem 1rem;
+      min-height: 200px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      color: #2a2518;
+    }
+
+    .copyBtn {
+      position: absolute;
+      right: 0.75rem;
+      top: 0.75rem;
+      background: transparent;
+      border: 1px solid #b2a489;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      padding: 0.4rem 0.5rem;
+      color: #5a4f3a;
+      cursor: pointer;
+    }
+
+    .legal {
+      font-size: 0.7rem;
+      line-height: 1.4;
+      color: #8a816a;
+      margin-top: 1.5rem;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .notice {
+      font-size: 0.7rem;
+      line-height: 1.4;
+      color: #a03535;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+
+  <main class="card">
+    <header>
+      <h1>whorem ipsum</h1>
+      <div class="tagline">
+        traditional placeholder text, reimagined for sluts and scholars. lorem ipsum cum laude.
+      </div>
+    </header>
+
+    <section class="controls">
+      <div class="control">
+        <label for="paras">paragraphs</label><br />
+        <select id="paras">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+          <option value="5">5</option>
+          <option value="8">8</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <label for="spice">spice level</label><br />
+        <select id="spice">
+          <option value="PG13">PG-13 (suggestivus)</option>
+          <option value="R">NSFWus Maximus</option>
+          <option value="XXX">Career-Ending</option>
+        </select>
+      </div>
+
+      <button id="generateBtn">generate filth</button>
+    </section>
+
+    <section class="outputWrapper" id="output">
+      <button class="copyBtn" id="copyBtn">copy to clipboardum</button>
+      <div id="text"></div>
+    </section>
+
+    <div class="legal">
+      warning: contains explicitum. definitely not historically accurate. possibly heresy.
+    </div>
+    <div class="notice">
+      all participants depicted are consenting adultus. zero minors. zero weird stuff. stay holy.
+    </div>
+  </main>
+
+  <script>
+    const BANK = {
+      PG13: [
+        "Whorem ipsum dolor sit amet, flexus ego maximus, thirst trapinus eternalibus. Glowus dewy cheekbones et camera angulus sanctus, praise be the jawline.",
+        "Lipsum plumpare, cupidatat booty maximus in high waistus denimus, humblebrag vitae est.",
+        "Sed thirsticus postare nocturnum, recipere DMus ‘u up?’ from Marcus, that messy emperor of late night.",
+        "Consentus mutualis, vibe immaculate, drama minimum, screenshotum maximum."
+      ],
+      R: [
+        "Whorem ipsum dolor sit amatissimo, libidinis aura drippat in collarbone et clavicula shine.",
+        "Lingua orbitat lente, manus explorat territorium uncharteditum like new provincia of Rome.",
+        "Peccatum delicious, moanus soft but dramatic for effectus, camera already propped on nightstandus because content is content.",
+        "Oiledus gluteus, arch deluxe, ‘say my nomen,’ chantare in templo pleasure. Aftercare followeth, hydratum both parties, gossip post-battle."
+      ],
+      XXX: [
+        // keep this consensual / explicit adult
+        "Whorem ipsum sanctum moanare, pelvis ad pelvis impactus in rhythm divine, sweatus drip down spina like holy water.",
+        "Lingua descendit lente along inner thighus, worship ritualis kiss by kiss down to the altar, handum in capillo pulling backus with ‘closer, please’ spoken like scripture.",
+        "Chestus press to backus, hips keepus tempo, both cry ‘oh my deus,’ simultaneus finishus celebratum like Saturnalia deluxe."
+      ]
+    };
+
+    function makeParagraph(level) {
+      // pick 3-5 random lines from BANK[level] and stitch
+      const lines = BANK[level];
+      const howMany = Math.floor(Math.random() * 3) + 3; // 3,4,5
+      let picks = [];
+      for (let i = 0; i < howMany; i++) {
+        const bit = lines[Math.floor(Math.random() * lines.length)];
+        picks.push(bit);
+      }
+      // join into one paragraph with spaces
+      return picks.join(" ");
+    }
+
+    function generateText() {
+      const paras = parseInt(document.getElementById("paras").value, 10);
+      const spice = document.getElementById("spice").value;
+      let finalText = "";
+      for (let i = 0; i < paras; i++) {
+        finalText += makeParagraph(spice) + "\n\n";
+      }
+      document.getElementById("text").textContent = finalText.trim();
+    }
+
+    function copyText() {
+      const txt = document.getElementById("text").textContent;
+      navigator.clipboard.writeText(txt).then(() => {
+        document.getElementById("copyBtn").textContent = "copiatum ✔";
+        setTimeout(()=>{
+          document.getElementById("copyBtn").textContent = "copy to clipboardum";
+        },1500);
+      });
+    }
+
+    document.getElementById("generateBtn").addEventListener("click", generateText);
+    document.getElementById("copyBtn").addEventListener("click", copyText);
+
+    // generate something on load so it's not empty
+    generateText();
+  </script>
+</body>
+</html>
